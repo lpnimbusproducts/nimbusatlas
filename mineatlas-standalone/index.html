@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090b18">
+  <meta name="description" content="MineAtlas is an independent offline-first catalog for discovering Minecraft mods, modpacks, shaders and resource packs.">
+  <title>MineAtlas — Find your next Minecraft mod</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="catalog-data.js"></script>
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#catalog">Skip to catalog</a>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="MineAtlas home">
+      <span class="brand-icon" aria-hidden="true">M</span>
+      <span>Mine<span>Atlas</span></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#catalog">Catalog</a>
+      <a href="#collections">Collections</a>
+      <a href="#about">About</a>
+    </nav>
+    <button class="header-collection" id="saved-nav" type="button">
+      <span class="bookmark-icon" aria-hidden="true">◇</span>
+      My collection
+      <strong id="saved-count">0</strong>
+    </button>
+    <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> INDEPENDENT MINECRAFT CATALOG</p>
+        <h1 id="hero-title">Find the mod that<br><em>changes everything.</em></h1>
+        <p class="hero-lead">Explore a hand-picked local library of Minecraft mods, modpacks, shaders and resource packs. Fast, private and available without a third-party catalog connection.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#catalog">Explore the catalog <span>→</span></a>
+          <button class="button ghost" id="ask-copilot-hero" type="button">Ask MineAtlas Copilot</button>
+        </div>
+        <div class="hero-facts">
+          <span><i></i><b id="hero-count">200+</b> local projects</span>
+          <span>·</span>
+          <span>No catalog API required</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="visual-orbit orbit-one"></div>
+        <div class="visual-orbit orbit-two"></div>
+        <div class="glass-window">
+          <div class="window-bar"><span class="mini-logo">M</span><b>MineAtlas</b><i></i><i></i><i></i></div>
+          <div class="window-search">⌕&nbsp;&nbsp; Search projects...</div>
+          <div class="window-grid">
+            <div class="mini-card"><span class="tile violet">S</span><div><b>Sodium</b><small>Performance · Fabric</small></div><strong>↗</strong></div>
+            <div class="mini-card"><span class="tile cyan">I</span><div><b>Iris Shaders</b><small>Shaders · Visuals</small></div><strong>↗</strong></div>
+            <div class="mini-card"><span class="tile green">C</span><div><b>Create</b><small>Technology · Forge</small></div><strong>↗</strong></div>
+          </div>
+          <div class="window-status"><span>LIBRARY READY</span><b>100%</b></div>
+        </div>
+        <div class="floating-badge badge-top"><span>✦</span><div><b>Curated</b><small>Useful projects first</small></div></div>
+        <div class="floating-badge badge-bottom"><span>⚡</span><div><b>Independent</b><small>Runs from local data</small></div></div>
+      </div>
+    </section>
+
+    <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow"><span></span> PROJECT LIBRARY</p>
+          <h2 id="catalog-title">Built to be discovered.</h2>
+          <p>Search the complete local collection and find the right project for your world.</p>
+        </div>
+        <div class="library-stat"><strong id="project-count">—</strong><span>projects<br>available</span></div>
+      </div>
+
+      <div class="catalog-shell">
+        <aside class="filters" id="filters" aria-label="Catalog filters">
+          <div class="filter-mobile-head"><b>Filters</b><button id="close-filters" type="button" aria-label="Close filters">×</button></div>
+          <div class="filter-block">
+            <span class="filter-label">PROJECT TYPE</span>
+            <div class="type-list" id="type-list">
+              <button class="active" type="button" data-type="all"><span>◫</span>All projects <b id="count-all">0</b></button>
+              <button type="button" data-type="mod"><span>◇</span>Mods <b id="count-mod">0</b></button>
+              <button type="button" data-type="modpack"><span>▦</span>Modpacks <b id="count-modpack">0</b></button>
+              <button type="button" data-type="shader"><span>✦</span>Shaders <b id="count-shader">0</b></button>
+              <button type="button" data-type="resourcepack"><span>◈</span>Resource packs <b id="count-resourcepack">0</b></button>
+            </div>
+          </div>
+          <div class="filter-block">
+            <label class="filter-label" for="version-filter">MINECRAFT VERSION</label>
+            <select id="version-filter"><option value="">All versions</option></select>
+          </div>
+          <div class="filter-block">
+            <span class="filter-label">MOD LOADER</span>
+            <div class="check-list" id="loader-list">
+              <label><input type="checkbox" value="Fabric"> <span>Fabric</span></label>
+              <label><input type="checkbox" value="Forge"> <span>Forge</span></label>
+              <label><input type="checkbox" value="NeoForge"> <span>NeoForge</span></label>
+              <label><input type="checkbox" value="Quilt"> <span>Quilt</span></label>
+            </div>
+          </div>
+          <div class="filter-block">
+            <span class="filter-label">CATEGORY</span>
+            <div class="check-list category-checks" id="category-list"></div>
+          </div>
+          <button class="clear-filters" id="clear-filters" type="button">Clear all filters</button>
+          <div class="offline-note"><span>✓</span><div><b>Independent catalog</b><small>All project data is stored inside this website.</small></div></div>
+        </aside>
+
+        <div class="catalog-content">
+          <form class="search-panel" id="search-form" role="search">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="search-input" type="search" placeholder="Search mods, creators or categories..." aria-label="Search projects" autocomplete="off">
+            <kbd>/</kbd>
+            <button class="button primary compact" type="submit">Search</button>
+          </form>
+
+          <div class="catalog-toolbar">
+            <div>
+              <button class="mobile-filter-button" id="open-filters" type="button">☷ Filters</button>
+              <h3 id="result-title">All projects</h3>
+              <span id="result-count">Loading...</span>
+            </div>
+            <label>Sort by
+              <select id="sort-select">
+                <option value="popular">Most popular</option>
+                <option value="name">Name A–Z</option>
+                <option value="recent">Recently updated</option>
+              </select>
+            </label>
+          </div>
+          <div class="active-filters" id="active-filters"></div>
+          <div class="project-grid" id="project-grid" aria-live="polite"></div>
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="collections-section" id="collections" aria-labelledby="collections-title">
+      <div>
+        <p class="eyebrow"><span></span> YOUR PERSONAL SHORTLIST</p>
+        <h2 id="collections-title">Keep the good ones close.</h2>
+        <p>Save projects while you browse. Your collection stays private in this browser and remains available the next time you return.</p>
+        <button class="button ghost light" id="view-saved" type="button">Open my collection <span>→</span></button>
+      </div>
+      <div class="collection-preview">
+        <div class="collection-stack">
+          <article><span>S</span><div><b>Sodium</b><small>Performance essential</small></div></article>
+          <article><span>I</span><div><b>Iris Shaders</b><small>Visual upgrade</small></div></article>
+          <article><span>C</span><div><b>Create</b><small>Build the impossible</small></div></article>
+        </div>
+        <span class="collection-count"><b id="collection-count">0</b> SAVED</span>
+      </div>
+    </section>
+
+    <section class="about-section" id="about" aria-labelledby="about-title">
+      <p class="eyebrow"><span></span> ABOUT MINEATLAS</p>
+      <h2 id="about-title">One clear place for your next Minecraft idea.</h2>
+      <div class="about-grid">
+        <article><span>01</span><h3>Browse locally</h3><p>The full catalog ships with the website. Search and filters keep working without a catalog API.</p></article>
+        <article><span>02</span><h3>Choose confidently</h3><p>Compare categories, compatible versions and loader information before changing your setup.</p></article>
+        <article><span>03</span><h3>Ask Copilot</h3><p>Describe what you want to play and the built-in assistant recommends matching projects from this catalog.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#top"><span class="brand-icon">M</span><span>Mine<span>Atlas</span></span></a>
+    <p>Independent Minecraft discovery, built by Nimbus Products.</p>
+    <span>© 2026 Nimbus Products · Not affiliated with Mojang or Microsoft.</span>
+  </footer>
+
+  <dialog class="project-dialog" id="project-dialog">
+    <button class="dialog-close" type="button" aria-label="Close project details">×</button>
+    <div id="project-dialog-content"></div>
+  </dialog>
+
+  <div class="copilot" id="copilot">
+    <button class="copilot-launcher" id="copilot-launcher" type="button" aria-label="Open MineAtlas Copilot" aria-expanded="false">
+      <span class="copilot-spark">✦</span>
+      <span class="copilot-pulse"></span>
+    </button>
+    <section class="copilot-panel" id="copilot-panel" aria-label="MineAtlas Copilot" hidden>
+      <header>
+        <div class="copilot-avatar">✦</div>
+        <div><b>MineAtlas Copilot</b><span><i></i> Ready to help</span></div>
+        <button id="copilot-close" type="button" aria-label="Close Copilot">×</button>
+      </header>
+      <div class="copilot-messages" id="copilot-messages" aria-live="polite">
+        <div class="message bot"><span>✦</span><div>Hi! Tell me what kind of Minecraft experience you want. I can find horror mods, performance upgrades, shaders, modpacks and more.</div></div>
+      </div>
+      <div class="quick-prompts" id="quick-prompts">
+        <button type="button">Best horror mods</button>
+        <button type="button">Improve my FPS</button>
+        <button type="button">Recommend a shader</button>
+      </div>
+      <form class="copilot-form" id="copilot-form">
+        <input id="copilot-input" type="text" placeholder="Ask about mods..." aria-label="Ask MineAtlas Copilot" maxlength="240" autocomplete="off">
+        <button type="submit" aria-label="Send message">↑</button>
+      </form>
+      <small class="copilot-disclaimer">Recommendations are generated locally from this catalog.</small>
+    </section>
+  </div>
+  <div class="mobile-overlay" id="mobile-overlay" hidden></div>
+</body>
+</html>
