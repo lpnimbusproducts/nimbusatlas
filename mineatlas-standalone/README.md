@@ -18,7 +18,7 @@ If Cloudflare asks for a framework preset, choose **None**. The root directory a
 - Sorting, pagination, project detail dialogs and a browser-local saved collection.
 - MineAtlas Copilot in the lower-right corner. It is a local recommendation assistant that ranks the bundled catalog by the player’s request. It does not call an external AI service and therefore has no running cost or secret key.
 - Responsive desktop, tablet and mobile layouts.
-- Cloudflare `_headers` security policy and SPA `_redirects`.
+- Cloudflare `_headers` security policy.
 
 ## Important limitations
 
